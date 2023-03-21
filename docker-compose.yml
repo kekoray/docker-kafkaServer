@@ -8,9 +8,9 @@ services:
     ports:
       - 2181:2181
     volumes:
-      - /data/zookeeper/conf/zoo.cfg:/conf/zoo.cfg
-      - /data/zookeeper/zookeeper1/data:/data
-      - /data/zookeeper/zookeeper1/datalog:/datalog
+      - /soft/kafka/conf/zoo.cfg:/conf/zoo.cfg
+      - /soft/kafka/zookeeper_data/zookeeper_1/data:/data
+      - /soft/kafka/zookeeper_data/zookeeper_1/log:/datalog
     environment:
       ZOO_MY_ID: 1
       ZOO_SERVERS:  server.1=zk1:2888:3888 server.1=zk2:2888:3888 server.1=zk3:2888:3888
@@ -26,9 +26,9 @@ services:
     ports:
       - 2182:2181
     volumes:
-      - /data/zookeeper/conf/zoo.cfg:/conf/zoo.cfg
-      - /data/zookeeper/zookeeper2/data:/data
-      - /data/zookeeper/zookeeper2/datalog:/datalog
+      - /soft/kafka/conf/zoo.cfg:/conf/zoo.cfg
+      - /soft/kafka/zookeeper_data/zookeeper_2/data:/data
+      - /soft/kafka/zookeeper_data/zookeeper_2/log:/datalog
     environment:
       ZOO_MY_ID: 2
       ZOO_SERVERS: server.1=zk1:2888:3888 server.1=zk2:2888:3888 server.1=zk3:2888:3888
@@ -44,9 +44,9 @@ services:
     ports:
       - 2183:2181
     volumes:
-      - /data/zookeeper/conf/zoo.cfg:/conf/zoo.cfg
-      - /data/zookeeper/zookeeper3/data:/data
-      - /data/zookeeper/zookeeper3/datalog:/datalog
+      - /soft/kafka/conf/zoo.cfg:/conf/zoo.cfg
+      - /soft/kafka/zookeeper_data/zookeeper_3/data:/data
+      - /soft/kafka/zookeeper_data/zookeeper_3/log:/datalog
     environment:
       ZOO_MY_ID: 3
       ZOO_SERVERS: server.1=zk1:2888:3888 server.1=zk2:2888:3888 server.1=zk3:2888:3888
@@ -65,14 +65,14 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka1
       KAFKA_HOST_NAME: kafka1
       KAFKA_ADVERTISED_PORT: 9092    # 暴露在外的端口
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.1.105:9092  # 暴露在外的地址
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${externalIP}:9092  # 暴露在外的地址(本机IP)
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_BROKER_ID: 0
       KAFKA_ZOOKEEPER_CONNECT: zk1:2181,zk2:2181,zk3:2181
       KAFKA_DELETE_TOPIC_ENABLE: TRUE
     volumes:
       - /etc/localtime:/etc/localtime          # kafka和宿主机器之间时间保持一致
-      - /data/kafka/kafka1/logs:/kafka
+      - /soft/kafka/kafka_data/kafka_1:/kafka
     links:
       - zk1
       - zk2
@@ -92,14 +92,14 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka2
       KAFKA_HOST_NAME: kafka2
       KAFKA_ADVERTISED_PORT: 9093  # 暴露在外的端口
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.1.105:9093 # 暴露在外的地址
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${externalIP}:9093 # 暴露在外的地址(本机IP)
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zk1:2181,zk2:2181,zk3:2181
       KAFKA_DELETE_TOPIC_ENABLE: TRUE
     volumes:
       - /etc/localtime:/etc/localtime  #kafka和宿主机器之间时间保持一致
-      - /data/kafka/kafka2/logs:/kafka
+      - /soft/kafka/kafka_data/kafka_2:/kafka
     links:
       - zk1
       - zk2
@@ -119,14 +119,14 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka3
       KAFKA_HOST_NAME: kafka3
       KAFKA_ADVERTISED_PORT: 9094  # 暴露在外的端口
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.1.105:9094 # 暴露在外的地址
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${externalIP}:9094 # 暴露在外的地址(本机IP)
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_BROKER_ID: 2
       KAFKA_ZOOKEEPER_CONNECT: zk1:2181,zk2:2181,zk3:2181
       KAFKA_DELETE_TOPIC_ENABLE: TRUE
     volumes:
       - /etc/localtime:/etc/localtime  #kafka和宿主机器之间时间保持一致
-      - /data/kafka/kafka3/logs:/kafka
+      - /soft/kafka/kafka_data/kafka_3:/kafka
     links:
       - zk1
       - zk2
@@ -153,9 +153,9 @@ services:
         ZK_HOSTS: zk1:2181,zk2:2181,zk3:2181
         KAFKA_BROKERS: kafka1:9092,kafka2:9093,kafka3:9094
         APPLICATION_SECRET: letmein
-        KAFKA_MANAGER_AUTH_ENABLED: "true" # 开启验证
-        KAFKA_MANAGER_USERNAME: "admin" # 用户名
-        KAFKA_MANAGER_PASSWORD: "123456" # 密码
+        KAFKA_MANAGER_AUTH_ENABLED: "true"    # 开启验证
+        KAFKA_MANAGER_USERNAME: "admin"       # 用户名
+        KAFKA_MANAGER_PASSWORD: ${managerPasswd}      # 密码
         KM_ARGS: -Djava.net.preferIPv4Stack=true
       networks:
         default:
@@ -164,4 +164,4 @@ services:
 networks:
   default:
     external:
-      name: bigdata_net
+      name: kafka_net
