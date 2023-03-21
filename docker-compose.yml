@@ -58,7 +58,7 @@ services:
         ipv4_address: 172.23.0.12
 
   kafka1:
-    image: ubuntu/kafka:latest
+    image: bitnami/kafka:2.2.1-debian-9-r33
     restart: always
     container_name: kafka1
     hostname: kafka1
@@ -86,7 +86,7 @@ services:
         ipv4_address: 172.23.0.20
 
   kafka2:
-    image: ubuntu/kafka:latest
+    image: bitnami/kafka:2.2.1-debian-9-r33
     restart: always
     container_name: kafka2
     hostname: kafka2
@@ -114,7 +114,7 @@ services:
         ipv4_address: 172.23.0.21
 
   kafka3:
-    image: ubuntu/kafka:latest
+    image: bitnami/kafka:2.2.1-debian-9-r33
     restart: always
     container_name: kafka3
     hostname: kafka3
