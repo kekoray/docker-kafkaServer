@@ -72,7 +72,7 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${externalIP}:9092  # 暴露在外的地址(本机IP)
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ZOOKEEPER_CONNECT: zk1:2181,zk2:2181,zk3:2181
-      # ALLOW_PLAINTEXT_LISTENER: yes                               # 允许使用PLAINTEXT侦听器
+      # ALLOW_PLAINTEXT_LISTENER: yes                               # 3.0版本开启-允许使用PLAINTEXT侦听器
       KAFKA_DELETE_TOPIC_ENABLE: TRUE                             # 允许删除topic
     volumes:
       - /etc/localtime:/etc/localtime          # kafka和宿主机器之间时间保持一致
@@ -100,7 +100,7 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${externalIP}:9093  # 暴露在外的地址(本机IP)
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ZOOKEEPER_CONNECT: zk1:2181,zk2:2181,zk3:2181
-      # ALLOW_PLAINTEXT_LISTENER: yes                               # 允许使用PLAINTEXT侦听器
+      # ALLOW_PLAINTEXT_LISTENER: yes                               # 3.0版本开启-允许使用PLAINTEXT侦听器
       KAFKA_DELETE_TOPIC_ENABLE: TRUE                             # 允许删除topic
     volumes:
       - /etc/localtime:/etc/localtime  #kafka和宿主机器之间时间保持一致
@@ -128,7 +128,7 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${externalIP}:9094  # 暴露在外的地址(本机IP)
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ZOOKEEPER_CONNECT: zk1:2181,zk2:2181,zk3:2181
-      # ALLOW_PLAINTEXT_LISTENER: yes                               # 允许使用PLAINTEXT侦听器
+      # ALLOW_PLAINTEXT_LISTENER: yes                               # 3.0版本开启-允许使用PLAINTEXT侦听器
       KAFKA_DELETE_TOPIC_ENABLE: TRUE                             # 允许删除topic
     volumes:
       - /etc/localtime:/etc/localtime  #kafka和宿主机器之间时间保持一致
@@ -159,9 +159,9 @@ services:
         ZK_HOSTS: zk1:2181,zk2:2181,zk3:2181
         KAFKA_BROKERS: kafka1:9092,kafka2:9093,kafka3:9094
         APPLICATION_SECRET: letmein
-        KAFKA_MANAGER_AUTH_ENABLED: "true"    # 开启验证
+        KAFKA_MANAGER_AUTH_ENABLED: "true"           # 开启验证
         KAFKA_MANAGER_USERNAME: ${managerUser}       # 用户名
-        KAFKA_MANAGER_PASSWORD: ${managerPasswd}      # 密码
+        KAFKA_MANAGER_PASSWORD: ${managerPasswd}     # 密码
         KM_ARGS: -Djava.net.preferIPv4Stack=true
       networks:
         default:
