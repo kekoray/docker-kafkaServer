@@ -1,0 +1,113 @@
+version: "3"
+services:
+  kafka1:
+    image: bitnami/kafka:3.3.2
+    container_name: kafka1
+    hostname: kafka1
+    restart: always
+    user: root
+    environment:
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_BROKER_ID=1                                                # broker.id,必须唯一
+      - KAFKA_ENABLE_KRAFT=yes                                           # 允许使用kraft,即Kafka替代Zookeeper
+      - KAFKA_KRAFT_CLUSTER_ID=LelM2dIFQkiUFvXCEcqRWA                    # 使用Kafka时的集群id,默认使用这个id做初始化,生成UUID
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka1:9093,2@kafka2:9093,3@kafka3:9093
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller                        # kafka角色,做broker,也要做controller
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER                   # 指定供外部使用的控制类请求信息
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093         # 定义kafka服务端socket监听端口
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://${externalIP}:9192    # 定义外网访问地址(本机IP)
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT    # 定义安全协议
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false                        # 不允许自动创建主题
+      - KAFKA_HEAP_OPTS=-Xmx512M -Xms256M                                # 设置broker最大内存和初始内存
+      - KAFKA_DELETE_TOPIC_ENABLE:TRUE                                   # 允许删除topic
+      - ALLOW_PLAINTEXT_LISTENER=yes     # 允许使用PLAINTEXT监听器,默认false,不建议在生产环境使用
+    volumes:
+      - ./data/kafka1/kraft:/bitnami/kafka
+      - /etc/localtime:/etc/localtime
+    ports:
+      - 9192:9092
+    networks:
+        default:
+            ipv4_address: 192.168.5.11
+
+  kafka2:
+    image: bitnami/kafka:3.3.2
+    container_name: kafka2
+    hostname: kafka2
+    restart: always
+    user: root
+    environment:
+      - KAFKA_CFG_NODE_ID=2
+      - KAFKA_BROKER_ID=2                                              # broker.id,必须唯一
+      - KAFKA_ENABLE_KRAFT=yes                                         # 允许使用kraft,即Kafka替代Zookeeper
+      - KAFKA_KRAFT_CLUSTER_ID=LelM2dIFQkiUFvXCEcqRWA                  # 使用Kafka时的集群id,默认使用这个id做初始化,生成UUID
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka1:9093,2@kafka2:9093,3@kafka3:9093
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller                      # kafka角色,做broker,也要做controller
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER                 # 指定供外部使用的控制类请求信息
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093       # 定义kafka服务端socket监听端口
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://${externalIP}:9293  # 定义外网访问地址(本机IP)
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT    # 定义安全协议
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false                      # 不允许自动创建主题
+      - KAFKA_HEAP_OPTS=-Xmx512M -Xms256M                              # 设置broker最大内存和初始内存
+      - KAFKA_DELETE_TOPIC_ENABLE:TRUE                                 # 允许删除topic
+      - ALLOW_PLAINTEXT_LISTENER=yes     # 允许使用PLAINTEXT监听器,默认false,不建议在生产环境使用
+    volumes:
+      - ./data/kafka2/kraft:/bitnami/kafka
+      - /etc/localtime:/etc/localtime
+    ports:
+      - 9293:9092
+    networks:
+        default:
+            ipv4_address: 192.168.5.12
+
+  kafka3:
+    image: bitnami/kafka:3.3.2
+    container_name: kafka3
+    hostname: kafka3
+    restart: always
+    user: root
+    environment:
+      - KAFKA_CFG_NODE_ID=3
+      - KAFKA_BROKER_ID=3                                              # broker.id,必须唯一
+      - KAFKA_ENABLE_KRAFT=yes                                         # 允许使用kraft,即Kafka替代Zookeeper
+      - KAFKA_KRAFT_CLUSTER_ID=LelM2dIFQkiUFvXCEcqRWA                  # 使用Kafka时的集群id,默认使用这个id做初始化,生成UUID
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka1:9093,2@kafka2:9093,3@kafka3:9093
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller                      # kafka角色,做broker,也要做controller
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER                 # 指定供外部使用的控制类请求信息
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093       # 定义kafka服务端socket监听端口
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://${externalIP}:9394  # 定义外网访问地址(本机IP)
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT    # 定义安全协议
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false                      # 不允许自动创建主题
+      - KAFKA_HEAP_OPTS=-Xmx512M -Xms256M                              # 设置broker最大内存和初始内存
+      - KAFKA_DELETE_TOPIC_ENABLE:TRUE                                 # 允许删除topic
+      - ALLOW_PLAINTEXT_LISTENER=yes     # 允许使用PLAINTEXT监听器,默认false,不建议在生产环境使用
+    volumes:
+      - ./data/kafka3/kraft:/bitnami/kafka
+      - /etc/localtime:/etc/localtime
+    ports:
+      - 9394:9092
+    networks:
+        default:
+            ipv4_address: 192.168.5.13
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - /etc/localtime:/etc/localtime
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=kafka-3.3    
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka1:9092,kafka2:9092,kafka3:9092   
+    networks:
+        default:
+            ipv4_address: 192.168.5.14
+
+# docker network create --driver bridge --subnet 192.168.5.0/25 --gateway 192.168.5.1  kafka_net
+
+networks:
+  default:
+    external: true
+    name: kafka_net
