@@ -1,7 +1,7 @@
 version: "3"
 services:
   kafka1:
-    image: bitnami/kafka:3.3.2
+    image: koray2021/kafka:3.3.2
     container_name: kafka1
     hostname: kafka1
     restart: always
@@ -31,7 +31,7 @@ services:
             ipv4_address: 192.168.5.11
 
   kafka2:
-    image: bitnami/kafka:3.3.2
+    image: koray2021/kafka:3.3.2
     container_name: kafka2
     hostname: kafka2
     restart: always
@@ -61,7 +61,7 @@ services:
             ipv4_address: 192.168.5.12
 
   kafka3:
-    image: bitnami/kafka:3.3.2
+    image: koray2021/kafka:3.3.2
     container_name: kafka3
     hostname: kafka3
     restart: always
@@ -91,7 +91,7 @@ services:
             ipv4_address: 192.168.5.13
 
   kafka-ui:
-    image: provectuslabs/kafka-ui:latest
+    image: koray2021/kafka-ui:latest	
     container_name: kafka-ui
     restart: always
     ports:

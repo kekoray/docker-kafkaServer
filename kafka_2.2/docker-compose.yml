@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   zk1: 
-    image: zookeeper:latest
+    image: koray2021/zookeeper:3.8
     restart: always
     container_name: zk1
     hostname: zk1
@@ -20,7 +20,7 @@ services:
         ipv4_address: 172.23.0.10
 
   zk2:
-    image: zookeeper:latest
+    image: koray2021/zookeeper:3.8
     restart: always
     container_name: zk2
     hostname: zk2
@@ -39,7 +39,7 @@ services:
         ipv4_address: 172.23.0.11
 
   zk3:
-    image: zookeeper:latest
+    image: koray2021/zookeeper:3.8
     restart: always
     container_name: zk3
     hostname: zk3
@@ -58,7 +58,7 @@ services:
         ipv4_address: 172.23.0.12
 
   kafka1:
-    image: fogsyio/kafka:2.2.0
+    image: koray2021/kafka:2.2.0
     restart: always
     container_name: kafka1
     hostname: kafka1
@@ -82,7 +82,7 @@ services:
         ipv4_address: 172.23.0.20
 
   kafka2:
-    image: fogsyio/kafka:2.2.0
+    image: koray2021/kafka:2.2.0
     restart: always
     container_name: kafka2
     hostname: kafka2
@@ -104,9 +104,9 @@ services:
     networks:
       default:
         ipv4_address: 172.23.0.21
-
+ 
   kafka3:
-    image: fogsyio/kafka:2.2.0
+    image: koray2021/kafka:2.2.0
     restart: always
     container_name: kafka3
     hostname: kafka3
@@ -130,7 +130,7 @@ services:
         ipv4_address: 172.23.0.22
 
   kafka-manager:
-      image: wyh1791/kafka-manager-arm64v8:v2
+      image: koray2021/kafka-manager-arm64v8:latest
       restart: always
       container_name: kafka-manager
       hostname: kafka-manager
