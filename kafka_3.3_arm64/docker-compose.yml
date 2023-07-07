@@ -1,7 +1,7 @@
 version: "3"
 services:
   kafka1:
-    image: koray2021/kafka:3.3.2
+    image: koray2021/kafka:3.3.2-arm64
     container_name: kafka1
     hostname: kafka1
     restart: always
@@ -22,8 +22,8 @@ services:
       - KAFKA_DELETE_TOPIC_ENABLE:TRUE                                   # 允许删除topic
       - ALLOW_PLAINTEXT_LISTENER=yes     # 允许使用PLAINTEXT监听器,默认false,不建议在生产环境使用
     volumes:
-      - ./data/kafka1/kraft:/bitnami/kafka
       - /etc/localtime:/etc/localtime
+      - ./data/kafka1/kraft:/bitnami/kafka
     ports:
       - 9192:9092
     networks:
@@ -31,7 +31,7 @@ services:
             ipv4_address: 192.168.5.11
 
   kafka2:
-    image: koray2021/kafka:3.3.2
+    image: koray2021/kafka:3.3.2-arm64
     container_name: kafka2
     hostname: kafka2
     restart: always
@@ -52,8 +52,8 @@ services:
       - KAFKA_DELETE_TOPIC_ENABLE:TRUE                                 # 允许删除topic
       - ALLOW_PLAINTEXT_LISTENER=yes     # 允许使用PLAINTEXT监听器,默认false,不建议在生产环境使用
     volumes:
-      - ./data/kafka2/kraft:/bitnami/kafka
       - /etc/localtime:/etc/localtime
+      - ./data/kafka2/kraft:/bitnami/kafka
     ports:
       - 9293:9092
     networks:
@@ -61,7 +61,7 @@ services:
             ipv4_address: 192.168.5.12
 
   kafka3:
-    image: koray2021/kafka:3.3.2
+    image: koray2021/kafka:3.3.2-arm64
     container_name: kafka3
     hostname: kafka3
     restart: always
@@ -82,8 +82,8 @@ services:
       - KAFKA_DELETE_TOPIC_ENABLE:TRUE                                 # 允许删除topic
       - ALLOW_PLAINTEXT_LISTENER=yes     # 允许使用PLAINTEXT监听器,默认false,不建议在生产环境使用
     volumes:
-      - ./data/kafka3/kraft:/bitnami/kafka
       - /etc/localtime:/etc/localtime
+      - ./data/kafka3/kraft:/bitnami/kafka
     ports:
       - 9394:9092
     networks:
@@ -91,7 +91,7 @@ services:
             ipv4_address: 192.168.5.13
 
   kafka-ui:
-    image: koray2021/kafka-ui:latest	
+    image: koray2021/kafka:3.3.2-arm64-kafka-ui
     container_name: kafka-ui
     restart: always
     ports:

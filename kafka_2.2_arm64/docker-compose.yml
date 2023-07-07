@@ -58,7 +58,7 @@ services:
         ipv4_address: 172.23.0.12
 
   kafka1:
-    image: koray2021/kafka:2.2.0
+    image: koray2021/kafka:2.2.0-arm64
     restart: always
     container_name: kafka1
     hostname: kafka1
@@ -82,7 +82,7 @@ services:
         ipv4_address: 172.23.0.20
 
   kafka2:
-    image: koray2021/kafka:2.2.0
+    image: koray2021/kafka:2.2.0-arm64
     restart: always
     container_name: kafka2
     hostname: kafka2
@@ -106,7 +106,7 @@ services:
         ipv4_address: 172.23.0.21
  
   kafka3:
-    image: koray2021/kafka:2.2.0
+    image: koray2021/kafka:2.2.0-arm64
     restart: always
     container_name: kafka3
     hostname: kafka3
@@ -130,7 +130,7 @@ services:
         ipv4_address: 172.23.0.22
 
   kafka-manager:
-      image: koray2021/kafka-manager-arm64v8:latest
+      image: koray2021/kafka:2.2.0-arm64-kafka-manager
       restart: always
       container_name: kafka-manager
       hostname: kafka-manager

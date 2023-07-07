@@ -1,21 +1,17 @@
 # docker-kafkaService
 
-> 使用之前要创建对应的网络配置
+### 版本说明
 
-
-
-### Image版本说明
-
-| 版本      | 节点数 | 依赖zookeeper | CPU架构     |
-| :-------- | :----- | :------------ | ----------- |
-| kafka_2.2 | 3      | 是            | linux/arm64 |
-| kafka_3.3 | 3      | 否            | linux/arm64 |
+| 版本      | CPU架构 | 节点数 | 说明 | WEB-UI |
+| :-------- | :----- | :------------ | ----------- | ----------- |
+| koray2021/kafka:2.2.0-arm64 | arm64 | 3      | 依赖zookeeper | koray2021/kafka:2.2.0-arm64-kafka-manager |
+| koray2021/kafka:3.3.2-arm64 | arm64 | 3      | 依赖内置kraft | koray2021/kafka:3.3.2-arm64-kafka-ui |
 
 
 
 ### 目录结构
 
-```
+```shell
 
 ```
 
@@ -23,15 +19,29 @@
 
 ### Compose传参说明
 
-| 参数项            | 说明                                                | 传参方式                         |
-| ----------------- | --------------------------------------------------- | -------------------------------- |
-| \${externalIP}    | kafka服务暴露在外的地址**(必须为具体IP，否则报错)** | 命令行形式传参，可动态获取本机IP |
-| \${managerUser}   | kafka-manager的用户名                               | 命令行形式传参                   |
-| \${managerPasswd} | kafka-manager的密码                                 | 命令行形式传参                   |
+| 服务          | 参数项            | 说明                                                | 传参方式                         |
+| ------------- | ----------------- | --------------------------------------------------- | -------------------------------- |
+| kafka         | \${externalIP}    | kafka服务暴露在外的地址**(必须为具体IP，否则报错)** | 命令行形式传参，可动态获取本机IP |
+| kafka-manager | \${managerUser}   | kafka-manager的用户名                               | 命令行形式传参                   |
+| kafka-manager | \${managerPasswd} | kafka-manager的密码                                 | 命令行形式传参                   |
 
 
 
-### Kafka操作说明
+### 网络说明
+
+> 启动服务之前要创建对应的网络配置
+
+```shell
+# kafka:2.2.0版本
+docker network create --driver bridge --subnet 172.23.0.0/25 --gateway 172.23.0.1  kafka_net
+
+# kafka:3.3.2版本
+docker network create --driver bridge --subnet 192.168.5.0/25 --gateway 192.168.5.1  kafka_net
+```
+
+
+
+### 容器操作
 
 **1.查看zookeeper集群是否正常**
 
