@@ -29,7 +29,7 @@
 
 ### 网络说明
 
-> 启动服务之前要创建对应的网络配置
+> 各个版本的**启动脚本**中会对网络配置进行检查，若不存在则新建对应的网络配置
 
 ```shell
 # kafka:2.2.0版本
@@ -46,32 +46,37 @@ docker network create --driver bridge --subnet 192.168.5.0/25 --gateway 192.168.
 **1.查看zookeeper集群是否正常**
 
 ```shell
+# kafka2
 docker exec -it zk1 bin/zkServer.sh status
 ```
 
 **2.新建topic**
 
 ```shell
+# kafka2
 docker exec -it kafka1 bash
 cd /opt/kafka/bin/
 ./kafka-topics.sh --create --replication-factor 1 --partitions 3 --topic test --zookeeper zk1:2181 
 
 # kafka3-KRAFT
+docker exec -it kafka1 bash
 kafka-topics.sh --create --topic demo --partitions 3 --replication-factor 3 --bootstrap-server kafka1:9092,kafka2:9092,kafka3:9092
 ```
 
 **3.查看topic**
 
 ```shell
+# kafka2
 kafka-topics.sh --list --zookeeper zk1:2181
 
 # kafka3-KRAFT
-kafka-topics.sh --bootstrap-server kafka1:9092 --list
+kafka-topics.sh --list --bootstrap-server kafka1:9092 
 ```
 
 **4.删除 Topic**
 
 ```shell
+# kafka2
 kafka-topics.sh --delete --zookeeper zk1:2181  --topic test
 
 # kafka3-KRAFT
@@ -81,6 +86,7 @@ kafka-topics.sh --delete --bootstrap-server kafka1:9092  --topic demo
 **5.生产消息**
 
 ```shell
+# kafka2
 kafka-console-producer.sh --broker-list kafka1:9092,kafka2:9092 --topic test
 
 # kafka3-KRAFT
@@ -90,6 +96,7 @@ kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic demo
 **6.消费消息**
 
 ```shell
+# kafka2
 kafka-console-consumer.sh --bootstrap-server kafka1:9092,kafka2:9092 --topic test
 
 # kafka3-KRAFT
