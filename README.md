@@ -13,17 +13,17 @@
 
 ```shell
 docker-kafkaService/
-├── README.md
 ├── kafka_2.2_arm64
 │   ├── conf
 │   │   └── zoo.cfg      # zookeeper配置
 │   ├── docker-compose.yml
 │   ├── start.sh
 │   └── stop.sh
-└── kafka_3.3_arm64
+├── kafka_3.3_arm64
     ├── docker-compose.yml
     ├── start.sh
     └── stop.sh
+└── README.md
 ```
 
 
