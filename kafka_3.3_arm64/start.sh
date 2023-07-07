@@ -12,4 +12,5 @@ fi
 # docker-compose传参
 echo "-----------  kafka is starting  ------------"
 IP=$(ip addr show wlan0 | grep -Po 'inet \K[\d.]+')
-externalIP="$IP" docker-compose -f ./docker-compose.yml up -d
+externalIP="$IP" \
+docker-compose -f ./docker-compose.yml up -d
