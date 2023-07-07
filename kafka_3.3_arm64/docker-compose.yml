@@ -20,7 +20,7 @@ services:
       - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false                        # 不允许自动创建主题
       - KAFKA_HEAP_OPTS=-Xmx512M -Xms256M                                # 设置broker最大内存和初始内存
       - KAFKA_DELETE_TOPIC_ENABLE:TRUE                                   # 允许删除topic
-      - ALLOW_PLAINTEXT_LISTENER=yes     # 允许使用PLAINTEXT监听器,默认false,不建议在生产环境使用
+      - ALLOW_PLAINTEXT_LISTENER=yes                                     # 允许使用PLAINTEXT监听器,默认false,不建议在生产环境使用
     volumes:
       - /etc/localtime:/etc/localtime
       - ./data/kafka1/kraft:/bitnami/kafka
@@ -50,7 +50,7 @@ services:
       - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false                      # 不允许自动创建主题
       - KAFKA_HEAP_OPTS=-Xmx512M -Xms256M                              # 设置broker最大内存和初始内存
       - KAFKA_DELETE_TOPIC_ENABLE:TRUE                                 # 允许删除topic
-      - ALLOW_PLAINTEXT_LISTENER=yes     # 允许使用PLAINTEXT监听器,默认false,不建议在生产环境使用
+      - ALLOW_PLAINTEXT_LISTENER=yes                                   # 允许使用PLAINTEXT监听器,默认false,不建议在生产环境使用
     volumes:
       - /etc/localtime:/etc/localtime
       - ./data/kafka2/kraft:/bitnami/kafka
@@ -80,7 +80,7 @@ services:
       - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false                      # 不允许自动创建主题
       - KAFKA_HEAP_OPTS=-Xmx512M -Xms256M                              # 设置broker最大内存和初始内存
       - KAFKA_DELETE_TOPIC_ENABLE:TRUE                                 # 允许删除topic
-      - ALLOW_PLAINTEXT_LISTENER=yes     # 允许使用PLAINTEXT监听器,默认false,不建议在生产环境使用
+      - ALLOW_PLAINTEXT_LISTENER=yes                                   # 允许使用PLAINTEXT监听器,默认false,不建议在生产环境使用
     volumes:
       - /etc/localtime:/etc/localtime
       - ./data/kafka3/kraft:/bitnami/kafka
