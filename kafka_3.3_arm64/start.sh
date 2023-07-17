@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # 检查网络配置是否存在
-docker network inspect kafka_net >/dev/null 2>&1
+docker network inspect unite_net >/dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "-----------  network exists : [ kafka_net ]  ------------"
+    echo "-----------  network exists : [ unite_net ]  ------------"
 else
-    echo "-----------  network not exist, creating : [ kafka_net ]  ------------"
-    docker network create --driver bridge --subnet 192.168.5.0/25 --gateway 192.168.5.1  kafka_net
+    echo "-----------  network not exist, creating : [ unite_net ]  ------------"
+    docker network create --driver bridge --subnet 192.168.5.0/25 --gateway 192.168.5.1  unite_net
 fi
 
 # docker-compose传参
