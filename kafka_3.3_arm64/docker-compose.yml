@@ -28,7 +28,7 @@ services:
       - 9192:9092
     networks:
         default:
-            ipv4_address: 192.168.5.11
+            ipv4_address: 192.168.5.12
 
   kafka2:
     image: koray2021/kafka:3.3.2-arm64
@@ -58,7 +58,7 @@ services:
       - 9293:9092
     networks:
         default:
-            ipv4_address: 192.168.5.12
+            ipv4_address: 192.168.5.13
 
   kafka3:
     image: koray2021/kafka:3.3.2-arm64
@@ -88,7 +88,7 @@ services:
       - 9394:9092
     networks:
         default:
-            ipv4_address: 192.168.5.13
+            ipv4_address: 192.168.5.14
 
   kafka-ui:
     image: koray2021/kafka:3.3.2-arm64-kafka-ui
@@ -103,11 +103,11 @@ services:
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka1:9092,kafka2:9092,kafka3:9092   
     networks:
         default:
-            ipv4_address: 192.168.5.14
+            ipv4_address: 192.168.5.15
 
-# docker network create --driver bridge --subnet 192.168.5.0/25 --gateway 192.168.5.1  kafka_net
+# docker network create --driver bridge --subnet 192.168.5.0/25 --gateway 192.168.5.1  unite_net
 
 networks:
   default:
     external: true
-    name: kafka_net
+    name: unite_net
