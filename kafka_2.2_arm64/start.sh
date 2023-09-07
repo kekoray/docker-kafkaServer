@@ -11,7 +11,7 @@ fi
 
 # docker-compose传参
 echo "-----------  kafka is starting  ------------"
-IP=$(ip addr show wlan0 | grep -Po 'inet \K[\d.]+')
+IP=$(ip addr show eth0 | grep -Po 'inet \K[\d.]+')
 externalIP="$IP" \
 managerUser="root" \
 managerPasswd="123456" \

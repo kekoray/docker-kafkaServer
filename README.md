@@ -92,6 +92,11 @@ kafka-topics.sh --delete --zookeeper zk1:2181  --topic test
 
 # kafka3-KRAFT
 kafka-topics.sh --delete --bootstrap-server kafka1:9092  --topic demo
+
+# zk彻底删除
+zkCli.sh
+ls /brokers/topics
+delete  /brokers/topics/test
 ```
 
 **5.生产消息**
