@@ -32,7 +32,7 @@ docker-kafkaService/
 
 | 服务          | 参数项            | 说明                                                         | 传参方式                         |
 | ------------- | ----------------- | ------------------------------------------------------------ | -------------------------------- |
-| kafka         | \${externalIP}    | kafka服务暴露在外的地址**(本机IP/FRP云服务IP)******(必须为具体IP，否则报错)** | 命令行形式传参，可动态获取本机IP |
+| kafka         | \${externalIP}    | kafka服务暴露在外的地址**(本机IP/FRP云服务IP，必须为具体IP，否则连接不上)** | 命令行形式传参，可动态获取本机IP |
 | kafka-manager | \${managerUser}   | kafka-manager的用户名                                        | 命令行形式传参                   |
 | kafka-manager | \${managerPasswd} | kafka-manager的密码                                          | 命令行形式传参                   |
 
@@ -81,7 +81,7 @@ kafka-topics.sh --create --topic demo --partitions 3 --replication-factor 3 --bo
 kafka-topics.sh --list --zookeeper zk1:2181
 
 # kafka3-KRAFT
-kafka-topics.sh --list --bootstrap-server kafka1:9092 
+kafka-topics.sh --list --bootstrap-server kafka1:9092,kafka2:9092,kafka3:9092
 ```
 
 **4.删除 Topic**
@@ -116,7 +116,7 @@ kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic demo
 kafka-console-consumer.sh --bootstrap-server kafka1:9092,kafka2:9092 --topic test
 
 # kafka3-KRAFT
-kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic demo
+kafka-console-consumer.sh --bootstrap-server kafka1:9092,kafka2:9092,kafka3:9092 --topic demo
 ```
 
 **7.压力测试**
