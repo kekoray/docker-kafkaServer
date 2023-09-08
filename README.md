@@ -30,11 +30,11 @@ docker-kafkaService/
 
 ### Compose传参说明
 
-| 服务          | 参数项            | 说明                                                | 传参方式                         |
-| ------------- | ----------------- | --------------------------------------------------- | -------------------------------- |
-| kafka         | \${externalIP}    | kafka服务暴露在外的地址**(必须为具体IP，否则报错)** | 命令行形式传参，可动态获取本机IP |
-| kafka-manager | \${managerUser}   | kafka-manager的用户名                               | 命令行形式传参                   |
-| kafka-manager | \${managerPasswd} | kafka-manager的密码                                 | 命令行形式传参                   |
+| 服务          | 参数项            | 说明                                                         | 传参方式                         |
+| ------------- | ----------------- | ------------------------------------------------------------ | -------------------------------- |
+| kafka         | \${externalIP}    | kafka服务暴露在外的地址**(本机IP/FRP云服务IP)******(必须为具体IP，否则报错)** | 命令行形式传参，可动态获取本机IP |
+| kafka-manager | \${managerUser}   | kafka-manager的用户名                                        | 命令行形式传参                   |
+| kafka-manager | \${managerPasswd} | kafka-manager的密码                                          | 命令行形式传参                   |
 
 
 
